@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+  <!--<![endif]-->
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Hot Restaurant - Tables page</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css"
+      integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="#">upgrade your browser</a> to improve your experience.
+      </p>
+    <![endif]-->
+    <div class="container">
+      <div class="jumbotron text-center">
+        <h1>
+          <i class="fab fa-gripfire text-danger"></i>
+          <strong>
+            Hot Restaurant
+          </strong>
+        </h1>
+        <hr />
+        <h4>
+          Current Reservations and Waiting List
+        </h4>
+
+        <a href="/reserve" role="button" class="btn btn-danger mr-1">
+          <i class="far fa-calendar-alt"></i> Make a reservation
+        </a>
+
+        <a href="/" role="button" class="btn btn-light ml-1"
+          ><i class="fas fa-home"> </i
+        ></a>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="card-header">
+            Current Reservations
+          </div>
+          <ol id="tableOl"></ol>
+        </div>
+        <hr />
+        <div class="card">
+          <div class="card-header">
+            Waiting List
+          </div>
+          <ol id="reserveOl"></ol>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js"
+      integrity="sha384-7aThvCh9TypR7fIc2HV4O/nFMVCBwyIUKL8XCtKE+8xgCgl/PQGuFsvShjr74PBp"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      $(function() {
+        let tableData = [
+          {
+            customerName: "Ahmed",
+            customerEmail: "afhaque89@gmail.com",
+            customerID: "afhaque89",
+            phoneNumber: "979-587-0887"
+          },
+          {
+            customerName: "Joe",
+            customerEmail: "fake@email.com",
+            customerID: "afaque69",
+            phoneNumber: "555-555-5555"
+          }
+        ];
+        let reserveData = [
+          {
+            customerName: "Saima",
+            customerEmail: "saima@gmail.com",
+            phoneNumber: "979-587-0887",
+            customerID: "saimacool"
+          },
+          {
+            customerName: "Saima2",
+            customerEmail: "saima2@gmail.com",
+            phoneNumber: "979-587-0882",
+            customerID: "saimacool2"
+          }
+        ];
+
+        for (var i = 0; i < tableData.length; i++) {
+          let newLi = $("<li>");
+          newLi.text(tableData[i].customerID);
+          $("#tableOl").append(newLi);
+        }
+
+        for (var i = 0; i < reserveData.length; i++) {
+          let newLi = $("<li>");
+          newLi.text(reserveData[i].customerID);
+          $("#reserveOl").append(newLi);
+        }
+
+        $.ajax({
+          url: "localhost:3000/api/tables"
+        }).done(function(data) {
+          console.log(data);
+          let dataArray = data;
+          for (var i = 0; i < dataArray.length; i++) {
+            let newLi = $("<li>");
+            newLi.text(dataArray[i].customerID);
+            $("#tableOl").append(newLi);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

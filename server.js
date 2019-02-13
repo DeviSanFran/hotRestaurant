@@ -103,9 +103,9 @@ app.post("/api/tables", function(req, res) {
   newTable.customerID = req.body.customerID;
   newTable.phoneNumber = req.body.phoneNumber;
   //   console.log(req);
-  //   console.log(req.body);
+  console.log(req.body);
 
-  //   console.log(newTable);
+  console.log(newTable);
 
   if (data.tableData.length < 5) {
     data.tableData.push(newTable);

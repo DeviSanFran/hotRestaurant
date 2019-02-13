@@ -57,7 +57,7 @@
         <div class="card-header">Make your reservation</div>
 
         <div class="container">
-          <form action="POST" class="my-2">
+          <form class="my-2">
             <div class="form-group">
               <label for="customerID">User Name</label>
               <input
@@ -65,6 +65,7 @@
                 class="form-control"
                 id="customerID"
                 placeholder="Create a unique user name"
+                required
               />
             </div>
             <div class="form-group">
@@ -74,6 +75,7 @@
                 class="form-control"
                 id="customerName"
                 placeholder="Enter your name"
+                required
               />
             </div>
             <div class="form-group">
@@ -83,6 +85,7 @@
                 class="form-control"
                 id="customerEmail"
                 placeholder="Enter your email"
+                required
               />
             </div>
             <div class="form-group">
@@ -92,6 +95,7 @@
                 class="form-control"
                 id="phoneNumber"
                 placeholder="Enter your phone number"
+                required
               />
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -115,5 +119,30 @@
       integrity="sha384-7aThvCh9TypR7fIc2HV4O/nFMVCBwyIUKL8XCtKE+8xgCgl/PQGuFsvShjr74PBp"
       crossorigin="anonymous"
     ></script>
+
+    <script>
+      $(function() {
+        $("form").on("submit", function(e) {
+          e.preventDefault();
+          let newTable = {};
+          newTable.customerName = $("#customerName").val();
+          newTable.customerEmail = $("#customerEmail").val();
+          newTable.customerID = $("#customerID").val();
+          newTable.phoneNumber = $("#phoneNumber").val();
+          $.post({
+            url: "/api/tables",
+            data: newTable
+          }).done(function(data) {
+            let redirectMsg = " Redirecting to table page...";
+            if (data) {
+              alert("Your reservation has been made." + redirectMsg);
+            } else {
+              alert("You have been put on the waiting list." + redirectMsg);
+            }
+            window.location.replace("/tables");
+          });
+        });
+      });
+    </script>
   </body>
 </html>

@@ -88,49 +88,8 @@
 
     <script>
       $(function() {
-        let tableData = [
-          {
-            customerName: "Ahmed",
-            customerEmail: "afhaque89@gmail.com",
-            customerID: "afhaque89",
-            phoneNumber: "979-587-0887"
-          },
-          {
-            customerName: "Joe",
-            customerEmail: "fake@email.com",
-            customerID: "afaque69",
-            phoneNumber: "555-555-5555"
-          }
-        ];
-        let reserveData = [
-          {
-            customerName: "Saima",
-            customerEmail: "saima@gmail.com",
-            phoneNumber: "979-587-0887",
-            customerID: "saimacool"
-          },
-          {
-            customerName: "Saima2",
-            customerEmail: "saima2@gmail.com",
-            phoneNumber: "979-587-0882",
-            customerID: "saimacool2"
-          }
-        ];
-
-        for (var i = 0; i < tableData.length; i++) {
-          let newLi = $("<li>");
-          newLi.text(tableData[i].customerID);
-          $("#tableOl").append(newLi);
-        }
-
-        for (var i = 0; i < reserveData.length; i++) {
-          let newLi = $("<li>");
-          newLi.text(reserveData[i].customerID);
-          $("#reserveOl").append(newLi);
-        }
-
         $.ajax({
-          url: "localhost:3000/api/tables"
+          url: "/api/tables"
         }).done(function(data) {
           console.log(data);
           let dataArray = data;
@@ -138,6 +97,17 @@
             let newLi = $("<li>");
             newLi.text(dataArray[i].customerID);
             $("#tableOl").append(newLi);
+          }
+        });
+
+        $.ajax({
+          url: "/api/reserve"
+        }).done(function(data) {
+          let dataArray = data;
+          for (var i = 0; i < dataArray.length; i++) {
+            let newLi = $("<li>");
+            newLi.text(dataArray[i].customerID);
+            $("#reserveOl").append(newLi);
           }
         });
       });
